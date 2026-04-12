@@ -112,11 +112,8 @@ export default function Hero({ onEnter }: Props) {
       const s = state.current
       const w = canvas.width
       const h = canvas.height
-      const isMobile = w < 640
-      const r = Math.min(w, h) * (isMobile ? 0.38 : 0.28)
-      const fontCache = isMobile ? FONT_CACHE_MOBILE : FONT_CACHE
-      const fontDepthScale = isMobile ? 2 : 7
-      const ptCount = isMobile ? Math.min(60, pts.current.length) : pts.current.length
+      const r = Math.min(w, h) * 0.28
+      const ptCount = pts.current.length
 
       ctx.clearRect(0, 0, w, h)
 
@@ -189,7 +186,7 @@ export default function Hero({ onEnter }: Props) {
         const [px, py, pz] = rotBuf[i]
         const depth = (pz + 1) / 2
         ctx.globalAlpha = 0.08 + depth * 0.92
-        ctx.font = fontCache[Math.round(depth * fontDepthScale)]
+        ctx.font = FONT_CACHE[Math.round(depth * 7)]
         const v = Math.round(30 + depth * 225)
         ctx.fillStyle = `rgb(${v},${v},${v})`
         ctx.fillText(SPHERE_SKILLS[i % SPHERE_SKILLS.length], cx + px * r, cy + py * r)
