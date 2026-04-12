@@ -155,24 +155,18 @@ export default function About() {
         {/* Letter paragraphs */}
         <div className="flex flex-col gap-5" style={{ color: 'rgba(255,255,255,0.62)', lineHeight: '1.75' }}>
           <p>
-            I build fast, scalable systems from real-time data pipelines to
-            GPU-accelerated simulations. CS student at UIC graduating May&nbsp;2027,
-            excited about distributed systems, GPU computing, and the kind of
-            infrastructure problems most people never see.
+            I build things, watch them break, fix them, then repeat.
           </p>
           <p>
-            I've shipped a Kafka-powered live news terminal with sub-second latency,
-            a CUDA physics simulator for NASA's Space Apps Challenge, and full-stack
-            platforms used by real collaborators. From kernel-level parallelism to
-            React UIs — I care about the whole stack.
+            I'm a CS student at UIC graduating May&nbsp;2027, with a habit of
+            building things most students haven't heard of yet.
           </p>
           <p>
-            I obsess over correctness and performance so the systems I hand off
-            don't fall apart at 3&nbsp;AM. If it's worth building, it's worth
-            building right.
+            I specialize in distributed systems, Full Stack Development, and
+            learning new things everyday.
           </p>
           <p style={{ color: 'rgba(255,255,255,0.38)' }}>
-            Thanks for taking the time to check out my work.
+            Let's talk.
           </p>
         </div>
 
@@ -193,7 +187,7 @@ export default function About() {
 
           {/* Signature — aligned with name */}
           <img
-            src="/Muftee-signature.svg?v=2"
+            src="/Muftee-signature.svg"
             alt="Kareem Muftee signature"
             style={{ height: '44px', opacity: 0.8 }}
             onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}

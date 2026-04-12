@@ -9,7 +9,7 @@ const PROJECTS = [
     desc: 'Pulls live articles from across the web, routes them through Kafka message queues, caches hot stories in Redis for near-instant retrieval, and streams updates to clients over persistent WebSocket connections. Elasticsearch powers full-text search across millions of indexed articles with sub-100ms query times. Built to handle traffic spikes without dropping a single headline.',
     reveal: 'KAFKA DOESN\'T MISS A HEADLINE.',
     tags: ['React', 'Kafka', 'Redis', 'WebSockets', 'Elasticsearch'],
-    url: 'https://github.com/karimmufti',
+    url: 'https://github.com/karimmufti/news-rss-terminal',
     image: '/projects/rss-term-screenshot.png',
     accent: 'hsl(196,90%,60%)',
   },
@@ -17,10 +17,10 @@ const PROJECTS = [
     num: '02',
     title: 'Meteor Impact Simulator',
     year: '2025',
-    desc: 'GPU-accelerated asteroid impact physics simulator built for NASA Space Apps 2025. CUDA kernels via CuPy parallelize orbital mechanics calculations across thousands of threads, hitting 2–5× speedup over CPU baselines. Real asteroid data from NASA NEO API, terrain from USGS, ocean bathymetry from GEBCO — all rendered live in Three.js. Drop a rock anywhere on Earth and watch the numbers.',
+    desc: 'GPU-accelerated asteroid impact physics simulator built for NASA Space Apps 2025. CUDA kernels via CuPy parallelize orbital mechanics calculations across thousands of threads, hitting 2–5× speedup over CPU baselines. Real asteroid data from NASA NEO API, terrain from USGS, ocean bathymetry from GEBCO, all rendered live in Three.js. Drop a rock anywhere on Earth and watch the numbers.',
     reveal: 'WHAT IF EXTINCTION WAS INTERACTIVE.',
     tags: ['CUDA', 'Python', 'FastAPI', 'Three.js', 'CuPy'],
-    url: 'https://github.com/karimmufti',
+    url: 'https://github.com/karimmufti/meteor-simulator-cuda',
     image: '/projects/meteor-madness.png',
     accent: 'hsl(220,70%,65%)',
   },
@@ -28,10 +28,10 @@ const PROJECTS = [
     num: '03',
     title: 'Async Script Collaboration',
     year: '2026',
-    desc: 'A platform for remote film and theatre table reads — no scheduling required. Actors record lines asynchronously, the system stitches sessions together, and everything is served through a React Three Fiber typewriter UI that puts you on a stage. Token-based architecture via Supabase keeps sessions isolated. Built for real collaborators who can\'t be in the same room.',
+    desc: 'A platform for remote film and theatre table reads, no scheduling required. Actors record lines asynchronously, the system stitches sessions together, and everything is served through a React Three Fiber typewriter UI that puts you on a stage. Token-based architecture via Supabase keeps sessions isolated. Built for real collaborators who can\'t be in the same room.',
     reveal: 'TABLE READS. NO TABLE.',
     tags: ['React', 'TypeScript', 'Three.js', 'Supabase', 'R3F'],
-    url: 'https://github.com/karimmufti',
+    url: 'https://github.com/karimmufti/Scripta',
     image: '/projects/scriptascreenshot.png',
     accent: 'hsl(36,80%,58%)',
   },
@@ -125,10 +125,11 @@ function TingleDescription({
 }
 
 function ProjectRow({
-  project, index, revealed, onToggleReveal,
+  project, index, revealed, onToggleReveal, onImageClick,
 }: {
   project: Project; index: number
   revealed: boolean; onToggleReveal: () => void
+  onImageClick: (src: string) => void
 }) {
   const rowRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(rowRef, { once: true, margin: '-60px' })
@@ -224,6 +225,7 @@ function ProjectRow({
         {/* Per-row image — fades in on hover */}
         <div className="hidden lg:block shrink-0 self-center" style={{ width: '220px' }}>
           <div className="relative overflow-hidden"
+            onClick={() => onImageClick(project.image)}
             style={{
               aspectRatio: '4/3',
               borderRadius: '14px',
@@ -233,6 +235,7 @@ function ProjectRow({
               opacity: hovered ? 1 : 0,
               transform: hovered ? 'translateY(0) scale(1)' : 'translateY(6px) scale(0.97)',
               transition: 'opacity 0.4s ease, transform 0.4s ease',
+              cursor: 'zoom-in',
             }}>
             <img
               src={project.image}
@@ -250,8 +253,39 @@ function ProjectRow({
   )
 }
 
+function Lightbox({ src, onClose }: { src: string; onClose: () => void }) {
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [onClose])
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        className="fixed inset-0 z-[999] flex items-center justify-center"
+        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+        style={{ background: 'rgba(0,0,0,0.88)', backdropFilter: 'blur(8px)', cursor: 'zoom-out' }}
+        onClick={onClose}
+      >
+        <motion.img
+          src={src}
+          initial={{ scale: 0.88, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0.92, opacity: 0 }}
+          transition={{ duration: 0.25, ease: 'easeOut' }}
+          className="max-w-[90vw] max-h-[85vh] object-contain"
+          style={{ borderRadius: '12px', boxShadow: '0 40px 100px rgba(0,0,0,0.8)' }}
+          onClick={e => e.stopPropagation()}
+        />
+      </motion.div>
+    </AnimatePresence>
+  )
+}
+
 export default function Work() {
   const [revealedIdx, setRevealedIdx] = useState<number | null>(null)
+  const [lightbox, setLightbox] = useState<string | null>(null)
   const sectionRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(sectionRef, { once: true, margin: '-80px' })
 
@@ -280,9 +314,12 @@ export default function Work() {
             index={i}
             revealed={revealedIdx === i}
             onToggleReveal={() => setRevealedIdx(revealedIdx === i ? null : i)}
+            onImageClick={setLightbox}
           />
         ))}
       </div>
+
+      {lightbox && <Lightbox src={lightbox} onClose={() => setLightbox(null)} />}
     </div>
   )
 }

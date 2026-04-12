@@ -2,10 +2,11 @@ import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 
 const CATEGORIES = [
-  { num: '01', label: 'Languages',       skills: ['C / C++', 'Go', 'Python', 'TypeScript', 'SQL'] },
-  { num: '02', label: 'Systems & Infra', skills: ['Kafka', 'Redis', 'CUDA / CuPy', 'Docker', 'Linux'] },
-  { num: '03', label: 'Frontend',        skills: ['React', 'Three.js / R3F', 'WebSockets', 'Tailwind CSS'] },
-  { num: '04', label: 'Backend & Data',  skills: ['FastAPI', 'PostgreSQL', 'Supabase', 'Elasticsearch'] },
+  { num: '01', label: 'Languages',          skills: ['C', 'C++', 'Go', 'TypeScript', 'JavaScript', 'Python', 'SQL', 'F#', 'Swift'] },
+  { num: '02', label: 'Frameworks & Tools', skills: ['React', 'Node.js', 'Express.js', 'FastAPI', 'Vue.js', 'AWS'] },
+  { num: '03', label: 'Data & Streaming',   skills: ['Redis', 'Kafka', 'Redpanda', 'PostgreSQL', 'MySQL'] },
+  { num: '04', label: 'Systems & Infra',    skills: ['Linux', 'Git', 'Docker', 'Elasticsearch', 'OpenSearch'] },
+  { num: '05', label: 'GPU & Scientific',   skills: ['CUDA', 'CuPy', 'NumPy'] },
 ]
 
 export default function Skills() {

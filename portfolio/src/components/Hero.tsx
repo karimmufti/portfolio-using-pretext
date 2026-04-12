@@ -322,7 +322,7 @@ export default function Hero({ onEnter }: Props) {
                 transition={{ duration: 2.6, repeat: Infinity, ease: 'easeInOut' }}
                 style={{ border: '1px solid rgba(255,255,255,0.4)', borderRadius: '999px', inset: 0 }}
               />
-              enter
+              explore
             </button>
           </motion.div>
         )}
