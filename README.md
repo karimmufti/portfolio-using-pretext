@@ -8,6 +8,7 @@ A single-page portfolio focused on building immersive, interactive UI using HTML
 
 ---
 
+
 ## About
 
 This portfolio is an exploration of moving beyond traditional DOM + CSS-driven UI.
