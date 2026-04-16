@@ -62,23 +62,3 @@ Build
 npm run build
 npm run preview
 
-Status
-
-Ongoing project focused on experimentation and pushing the boundaries of frontend UI.
-
-Feedback
-
-If you have any thoughts or ideas, feel free to reach out or open an issue.
-
-
----
-
-## What I improved (so you learn from it)
-- Added a **strong intro** (not just “portfolio”)
-- Made it sound **intentional + experimental**
-- Highlighted **systems/UI thinking**
-- Cleaned up wording (“Canvas physics effects” → clearer descriptions)
-- Added **Live link at the top** (important)
-
----
-
